@@ -19,6 +19,24 @@ Comment.destroy_all
 User.create(name:'Scott', title: 'TCA Lead', location: 'R* North', assigner_id: 1, image_url: 'xD')
 
 Task.create(user_id: 1, name: 'Fix lod - NB_01', content: 'Sam level lod plz', 
-            deadline: Time.now, status: true, image_url: 'XD', tag: 'Americas, A class')
+            deadline: Time.now, status: true, image_url: 'https://png.pngtree.com/svg/20170505/b6219c949e.svg', tag: 'Americas, A class')
 
 Comment.create(task_id: 1, content: 'fix this shit yo')
+
+Task.create(user_id: 1, name: 'new lods', content: 'remake all the lods in the game', 
+    deadline: Time.now, status: true, image_url: 'https://png.pngtree.com/svg/20170505/b6219c949e.svg', tag: 'Americas, A class')
+
+Comment.create(task_id: 2, content: 'adadad')
+Comment.create(task_id: 2, content: 'fix this saadad')
+Comment.create(task_id: 2, content: 'fix adad')
+
+
+Task.create(user_id: 1, name: 'new lods for church', content: 'remake SD', 
+    deadline: Time.now, status: true, image_url: 'https://png.pngtree.com/svg/20170505/b6219c949e.svg', tag: 'Americas, A class')
+
+Comment.create(task_id: 3, content: 'adaadadd')
+Comment.create(task_id: 3, content: 'fixadads saadad')
+Comment.create(task_id: 3, content: 'fix adad')
+Comment.create(task_id: 3, content: 'adadad')
+Comment.create(task_id: 3, content: 'fix adadhis saadad')
+Comment.create(task_id: 3, content: 'fix adadad')
