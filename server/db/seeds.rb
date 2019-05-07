@@ -13,8 +13,12 @@
 
 User.destroy_all
 Task.destroy_all
+Comment.destroy_all
 
-User.create(name: 'Scott', title: 'TCA Lead', location: 'R* North', assigner_id: 1, image_url: 'xD')
+
+User.create(name:'Scott', title: 'TCA Lead', location: 'R* North', assigner_id: 1, image_url: 'xD')
 
 Task.create(user_id: 1, name: 'Fix lod - NB_01', content: 'Sam level lod plz', 
             deadline: Time.now, status: true, image_url: 'XD', tag: 'Americas, A class')
+
+Comment.create(task_id: 1, content: 'fix this shit yo')
