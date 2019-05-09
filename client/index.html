@@ -18,6 +18,7 @@
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
             integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
         </script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.js"></script>
     </head>
 
     <body>
@@ -25,35 +26,167 @@
         <nav class="navbar navbar-inverse navbar-fixed-top">
             <div class="container">
                 <div class="navbar-header">
-                    <a class="navbar-brand" href="#">DevDay - Welcome User</a>
+                    <a class="navbar-brand" id="nav-brand" href="#">DevDay</a>
+                    <input class="btn btn-default" id="new-task-btn" type="button" value="New Task">
+                    <input class="btn btn-default" id="view-team-btn" type="button" value="View Team">
+                    <input class="btn btn-default" id="contact-manager-btn" type="button" value="Contact Manager">
                 </div>
             </div>
         </nav>
 
         <div class="jumbotron">
             <div class="container">
-                <h1>Hello, Ranjit!</h1>
-                <p>You have X tasks remaining.</p>
-                <p>{title} is due in {time remaining}</p>
-                <input class="btn btn-default" type="button" value="New Task">
+                <h1 id="user-welcome"></h1>
+                <p id="tasks-summary">You have X tasks remaining.</p>
+                <p id="timeLeft-summary">{title} is due in {time remaining}</p>
                 <!-- <img src="https://png.pngtree.com/svg/20170505/b6219c949e.svg" alt="..." class="img-rounded"> -->
             </div>
         </div>
+
 <!-- TOP BANNER -->
         <div class="container" id="page-container">
             <div id="task-table">
+
+
+        <div class="container" id="page-container"> <!-- Container Start -->
+
+            <div class="container" id="new-task" style="display:none"> <!-- New Form Start -->
+                <form class="form-horizontal" id="form-task">
+                    <div class="form-group">
+                        <label for="inputEmail3" class="col-sm-2 control-label">Title:</label>
+                        <div class="col-sm-10">
+                            <input type="title" class="form-control" id="input-name" placeholder="Name your Task">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputPassword3" class="col-sm-2 control-label">Description:</label>
+                        <div class="col-sm-10">
+                            <textarea class="form-control" id="input-content" rows="3"
+                                placeholder="Write a description for the Task"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="container">
+                        <div>
+                            <label>Choose the priority:</label>
+                        </div>
+                        <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                            <label class="btn btn-secondary active">
+                                <input type="radio" name="options" id="option1" autocomplete="off" checked> Low
+                            </label>
+                            <label class="btn btn-secondary">
+                                <input type="radio" name="options" id="option2" autocomplete="off"> Medium
+                            </label>
+                            <label class="btn btn-secondary">
+                                <input type="radio" name="options" id="option3" autocomplete="off"> High
+                            </label>
+                        </div>
+                        <br>
+                        <br>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="inputPassword3" class="col-sm-2 control-label">Image:</label>
+                        <div class="col-sm-10">
+                            <input type="title" class="form-control" id="input-image" placeholder="Image Link">
+                        </div>
+                    </div>
+
+                    <br>
+                    <div class="container">
+                        <input id="input-deadline" width="312" />
+                        <script>
+                            $('#input-deadline').datetimepicker({
+                                footer: true,
+                                modal: true
+                            });
+                        </script>
+                    </div>
+                    <br>
+                    <br>
+                    <br>
+                    <button type="submit" value="Submit" class="btn btn-primary" id="new-form-submit">Submit</button>
+                </form>
+            </div> <!-- /New Form End -->
+
+
+            <div class="container" id="edit-task" style="display:none"> <!-- Edit Form -->
+                    <form class="form-horizontal" id="edit-form-task">
+                        <div class="form-group">
+                            <label for="inputEmail3" class="col-sm-2 control-label">Title:</label>
+                            <div class="col-sm-10">
+                                <input type="title" class="form-control" id="edit-name" placeholder="Name your Task">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputPassword3" class="col-sm-2 control-label">Description:</label>
+                            <div class="col-sm-10">
+                                <textarea class="form-control" id="edit-content" rows="3"
+                                    placeholder="Write a description for the Task"></textarea>
+                            </div>
+                        </div>
+    
+                        <div class="container">
+                            <div>
+                                <label>Choose the priority:</label>
+                            </div>
+                            <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                                <label class="btn btn-secondary active">
+                                    <input type="radio" name="options" id="option1" autocomplete="off" checked> Low
+                                </label>
+                                <label class="btn btn-secondary">
+                                    <input type="radio" name="options" id="option2" autocomplete="off"> Medium
+                                </label>
+                                <label class="btn btn-secondary">
+                                    <input type="radio" name="options" id="option3" autocomplete="off"> High
+                                </label>
+                            </div>
+                            <br>
+                            <br>
+                        </div>
+    
+    
+                        <div class="form-group">
+                            <label for="inputPassword3" class="col-sm-2 control-label">Image:</label>
+                            <div class="col-sm-10">
+                                <input type="title" class="form-control" id="edit-image" placeholder="Image Link">
+                            </div>
+                        </div>
+    
+                        <br>
+                        <div class="container">
+                            <input id="edit-deadline" width="312" />
+                            <script>
+                                $('#edit-deadline').datetimepicker({
+                                    footer: true,
+                                    modal: true
+                                });
+                            </script>
+                        </div>
+                        <br>
+                        <br>
+                        <br>
+                        <button type="submit" value="Submit" class="btn btn-primary" id="edit-form-submit">Submit</button>
+                    </form>
+                </div> <!-- /Edit Form End -->
+
+
+
+            <div id="task-table" style="display:block"> <!-- Table Start -->
+
                 <table class="table">
-                    <caption>Tasks for {User} - {Title}</caption>
                     <thead class="thead-dark">
                         <tr>
                             <th>#</th>
                             <th>Title</th>
                             <th>Description</th>
                             <th>Deadline</th>
-                            <th>Action</th>
+                            <th>Priority</th>
+                            <th>Status</th>
+                            <th>Actions</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody id="table-body">
                         <tr>
                             <th scope="row">1</th>
                             <td>Fix nb_09 textures</td>
@@ -147,57 +280,16 @@
         </div>
 
 
-            <div class="container" id="view-task">
-        
+            <div class="container" id="view-task" style="display:none">
+                <h1>Task Title</h1>
+
                 <input class="btn btn-default" type="button" value="Add Time">
                 <input class="btn btn-default" type="button" value="Resolve Task?">
                 <input class="btn btn-default" type="button" value="Add Comments">
 
                 <p>task Assigned By: {name - title}</p>                
                 <p>task Comments</p>
-            </div>
-
-            <div class="container" id="new-task">
-                <form class="form-horizontal">
-                    <div class="form-group">
-                        <label for="inputEmail3" class="col-sm-2 control-label">Title</label>
-                        <div class="col-sm-10">
-                            <input type="title" class="form-control" id="inputEmail3" placeholder="Title">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="inputPassword3" class="col-sm-2 control-label">Description</label>
-                        <div class="col-sm-10">
-                            <textarea class="form-control" rows="3" placeholder="Description"></textarea>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="inputPassword3" class="col-sm-2 control-label">Img URL</label>
-                        <div class="col-sm-10">
-                            <input type="title" class="form-control" id="inputEmail3" placeholder="Image URL">
-                        </div>
-                    </div>
-                    <div class="container">
-                        <input id="input" width="312" />
-                        <script>
-                            $('#input').datetimepicker({
-                                footer: true,
-                                modal: true
-                            });
-                        </script>
-                    </div>
-
-                    <div class="form-group">
-                        <div class="col-sm-offset-2 col-sm-10">
-                            <button type="submit" class="btn btn-default">Create Task!</button>
-                        </div>
-                    </div>
-                </form>
-            </div>
-
-            <footer>
-                <p>© 2020 Elon Ting, Inc.</p>
-            </footer>
+            </div> <!-- /Table End -->
         </div> <!-- /container -->
     </body>
 
