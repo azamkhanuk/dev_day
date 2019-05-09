@@ -43,6 +43,11 @@
             </div>
         </div>
 
+<!-- TOP BANNER -->
+        <div class="container" id="page-container">
+            <div id="task-table">
+
+
         <div class="container" id="page-container"> <!-- Container Start -->
 
             <div class="container" id="new-task" style="display:none"> <!-- New Form Start -->
@@ -168,6 +173,7 @@
 
 
             <div id="task-table" style="display:block"> <!-- Table Start -->
+
                 <table class="table">
                     <thead class="thead-dark">
                         <tr>
@@ -193,23 +199,95 @@
                     </tbody>
                 </table>
             </div>
+            
+            <div class="my-3 p-3 bg-white rounded shadow-sm">
+<!-- ASSIGNER DETAILS - TASK TITLE AT TOP -->
+                <br>
+                <h5 class="border-bottom border-gray pb-2 mb-0" id= "vt-task-name">Task Title</h5>
+                <br>
+                <figcaption class="figure-caption"><em>Assigned by:</em></figcaption>
+                <div class="media text-muted pt-3">
+                    <img src="https://png.pngtree.com/svg/20170505/b6219c949e.svg" class="img-circle" id= "vt-user-img" alt="Profile Picture" width="42" height="42">
+                    <div class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
+                        <div class="d-flex justify-content-between align-items-center w-100">
+                            <strong class="text-gray-dark" id= "vt-user-name"> &ensp; TEMP</strong>
+                        </div>
+                            <span class="d-block" id= "vt-user-title"> &ensp; TEMP</span>
+                    </div>
+<!-- PRIORITY -->
+                    <div class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
+                            <div class="d-flex justify-content-between align-items-center w-100">
+                                <figcaption class="figure-caption"><em>Priority:&ensp;&ensp;</em></figcaption>
+                                <div class="d-flex justify-content-between align-items-center w-100">
+                                    <button type="button" class="btn btn-warning" id="vt-task-tag">Info</button>
+                                </div>
+                            </div>
+                    </div>
+                </div>
+<!-- TASK PICTURE -->
+                <div class="media text-muted pt-3">
+                    <div class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
+                        <img src="" class="rounded" id= "vt-task-img" alt="Profile Picture" width="850" height="250">
+                    </div>
+                </div>
+<!-- DESCRIPTIOM / DEADLINE-->
+                <div class="media text-muted pt-3">
+                        <div class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
+                                <figcaption class="figure-caption"><em>Description:</em></figcaption>
+                                <br>
+                            <div class="d-flex justify-content-between align-items-center w-100">
+                                <span class="d-block" id= "vt-task-content"> Task Content/Desc</span>
+                            </div>
+                        </div>
+                        <div class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
+                                <figcaption class="figure-caption"><em>Deadline:</em></figcaption>
+                                <br>
+                            <div class="d-flex justify-content-between align-items-center w-100">
+                                <span class="d-block" id= "vt-task-deadline"> Deadline</span>
+                            </div>
+                        </div>
+                </div>
+<!-- STATUS / CREATE/UPDATE AT-->
+                <div class="media text-muted pt-3">
+                        <div class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
+                                <figcaption class="figure-caption"><em>Status:</em></figcaption>
+                                <button type="button" class="btn btn-success" id= "vt-task-status">Success</button>
+                        </div>
+                        <div class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
+                                <figcaption class="figure-caption"><em>Created/Updated at:</em></figcaption>
+                                <br>
+                            <div class="d-flex justify-content-between align-items-center w-100">
+                                <span class="d-block" id= "vt-task-created"> Created</span>
+                                <span class="d-block" id= "vt-task-updated"> Updated</span>
+                            </div>
+                        </div>
+                </div>
+<!-- COMMENTS -->
+                <div class="media text-muted pt-3">
+                    <div class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
+                        <figcaption class="figure-caption"><em>Comments:</em></figcaption>
+                        <br>
+                        <ul class="list-group" id="vt-task-comments">
+                            <!-- <li class="list-group-item">Cras justo odio</li>
+                            <li class="list-group-item">Dapibus ac facilisis in</li>
+                            <li class="list-group-item">Morbi leo risus</li>
+                            <li class="list-group-item">Porta ac consectetur ac</li>
+                            <li class="list-group-item">Vestibulum at eros</li> -->
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
 
             <div class="container" id="view-task" style="display:none">
                 <h1>Task Title</h1>
+
                 <input class="btn btn-default" type="button" value="Add Time">
                 <input class="btn btn-default" type="button" value="Resolve Task?">
-                <input class="btn btn-default" type="button" value="Edit Task">
-                <input class="btn btn-default" type="button" value="Delete Task">
                 <input class="btn btn-default" type="button" value="Add Comments">
 
-                <p>task Assigned By: {name - title}</p>
-                <p>task Description</p>
-                <p>task img</p>
-                <p>task deadline</p>
-                <p>task status</p>
-                <p>task tag</p>
-                <p>task created at</p>
-                <p>task updated at</p>
+                <p>task Assigned By: {name - title}</p>                
                 <p>task Comments</p>
             </div> <!-- /Table End -->
         </div> <!-- /container -->
