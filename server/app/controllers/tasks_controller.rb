@@ -1,6 +1,7 @@
 class TasksController < ApplicationController
     def create
-        task = Task.new(   name: params[:name],
+        task = Task.new(
+                    name: params[:name],
                     user_id: params[:user_id], 
                     content: params[:content],
                     deadline: params[:deadline],
@@ -10,7 +11,6 @@ class TasksController < ApplicationController
                     )
         if task.save
             render json: task
-            
         else
             render json: {error: 'Nope, not here.'}, status: 400
         end
@@ -18,26 +18,40 @@ class TasksController < ApplicationController
 
     def destroy
         task = Task.find_by(id: params[:id])
-
         if task
             task.destroy
             render json: {message: 'destroyed'}
         else
             render json: {error: 'not found'}, status: 404
-            
         end
     end
 
     def update
-        
+        task = Task.find_by(id: params[:id])
+
+        if task.save
+            render json: task
+        else
+            render json: {error: 'Nope, not here.'}, status: 400
+        end
+
+    end
+
+    def index
+        task = Task.all
+        if task
+            render json: task
+        else
+            render json: {error: 'Nope, not here.'}, status: 404
+        end
+    end
+
+    def show
+        task = Task.find_by(id: params[:id])
+        if task
+            render json: task
+        else
+            render json: {error: 'Nope, not here.'}, status: 404
+        end
     end
 end
-
-
-t.integer "user_id"
-t.string "name"
-t.text "content"
-t.datetime "deadline"
-t.boolean "status"
-t.string "image_url"
-t.string "tag"
