@@ -22,7 +22,8 @@ const createTask = task =>
             deadline: task.deadline,
             status: task.status,
             image_url: task.image_url,
-            tag: task.tag
+            tag: task.tag,
+            assigner_id: task.assigner_id
         })
     }).then(resp => resp.json())
 
@@ -52,3 +53,7 @@ const getComments = task =>
             task_id: task.id
         })
     }).then(resp => resp.json())
+
+const getAssigners =  () =>
+    fetch('http://localhost:3000/users/')
+    .then(resp => resp.json())

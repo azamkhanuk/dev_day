@@ -16,14 +16,14 @@ Task.destroy_all
 Comment.destroy_all
 
 
-User.create(name:'Scott', title: 'TCA Lead', location: 'R* North', assigner_id: 1, image_url: 'https://png.pngtree.com/svg/20170505/b6219c949e.svg')
+User.create(name:'Scott', title: 'TCA Lead', location: 'R* North', image_url: 'https://png.pngtree.com/svg/20170505/b6219c949e.svg')
 
-Task.create(user_id: 1, name: 'Fix lod - NB_01', content: 'Sam level lod plz', 
+Task.create(assigner_id: 1, user_id: 1, name: 'Fix lod - NB_01', content: 'Sam level lod plz', 
             deadline: Time.at(Time.now.to_i + 46200), status: true, image_url: 'https://png.pngtree.com/svg/20170505/b6219c949e.svg', tag: 'High')
 
 Comment.create(task_id: 1, content: 'fix this shit yo')
 
-Task.create(user_id: 1, name: 'new lods', content: 'remake all the lods in the game', 
+Task.create(assigner_id: 2, user_id: 1, name: 'new lods', content: 'remake all the lods in the game', 
     deadline: Time.at(Time.now.to_i + 70000), status: false, image_url: 'https://png.pngtree.com/svg/20170505/b6219c949e.svg', tag: 'Medium')
 
 Comment.create(task_id: 2, content: 'adadad')
@@ -31,7 +31,7 @@ Comment.create(task_id: 2, content: 'fix this saadad')
 Comment.create(task_id: 2, content: 'fix adad')
 
 
-Task.create(user_id: 1, name: 'new lods for church', content: 'remake SD', 
+Task.create(assigner_id: 2, user_id: 1, name: 'new lods for church', content: 'remake SD', 
     deadline: Time.at(Time.now.to_i + 55400), status: true, image_url: 'https://png.pngtree.com/svg/20170505/b6219c949e.svg', tag: 'Low')
 
 Comment.create(task_id: 3, content: 'adaadadd')
@@ -41,9 +41,9 @@ Comment.create(task_id: 3, content: 'adadad')
 Comment.create(task_id: 3, content: 'fix adadhis saadad')
 Comment.create(task_id: 3, content: 'fix adadad')
 
-User.create(name:'Tim', title: 'Junior TCA', location: 'R* Leeds', assigner_id: 2, image_url: 'https://png.pngtree.com/svg/20170505/b6219c949e.svg')
+User.create(name:'Tim', title: 'Junior TCA', location: 'R* Leeds', image_url: 'https://png.pngtree.com/svg/20170505/b6219c949e.svg')
 
-Task.create(user_id: 2, name: 'Bank needs more dirt', content: 'Aaron lod plz', 
+Task.create(assigner_id: 1, user_id: 2, name: 'Bank needs more dirt', content: 'Aaron lod plz', 
     deadline: Time.at(Time.now.to_i + 66200), status: true, image_url: 'https://png.pngtree.com/svg/20170505/b6219c949e.svg', tag: 'Jack, D class')
 
 Comment.create(task_id: 4, content: 'Test needs testing')

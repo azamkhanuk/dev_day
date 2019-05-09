@@ -7,7 +7,8 @@ class TasksController < ApplicationController
                     deadline: params[:deadline],
                     status: params[:status],
                     image_url: params[:image_url],
-                    tag: params[:tag]
+                    tag: params[:tag],
+                    assigner_id: params[:assigner_id]
                     )
         if task.save
             render json: task

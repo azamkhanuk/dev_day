@@ -2,6 +2,7 @@
 //! Global Variables 
 const state = {
     user: [],
+    assigners: [],
     selected: null,
     comments: []
 }
@@ -34,13 +35,22 @@ const formToggle = () => {
      })
 }
 
+
 const createForm = () => {
     submitBtn = document.querySelector('#new-form-submit')
     form = document.querySelector('#form-task')
+
+    getAssigners()
+    .then((data) => {
+        state.assigners = data
+        renderAssigners()
+    })
+
     submitBtn.addEventListener('click', event => {
         event.preventDefault()
         const task = {
             user_id: 1,
+            assigner_id: optionsValue(),
             name: document.querySelector('#input-name').value,
             content: document.querySelector('#input-content').value,
             image_url: document.querySelector('#input-image').value,
@@ -59,6 +69,26 @@ const createForm = () => {
         formDiv.style.display = "none"
         tableDiv.style.display = "block"
     })
+}
+
+const optionsValue = () => {
+    const sel = document.getElementById('assigner-select')
+    const opt = sel.options[sel.selectedIndex]
+    const value = parseInt(opt.value)
+    return value
+}
+
+const renderAssigner = assigner => {
+    const assignerSelect = document.getElementById('assigner-select')
+    assignerSelect.innerHTML += `
+    <option value=${assigner.id}>${assigner.name}</option>
+    `
+}
+
+const renderAssigners = () => {
+    const assignerSelect = document.getElementById('assigner-select')
+    assignerSelect.innerHTML = ''
+    state.assigners.forEach(renderAssigner)
 }
 
 const formatDate = date => {
@@ -109,6 +139,10 @@ const view_details = () => {
     }
 
 
+    getAssigner()
+
+
+
 }
 
 const renderCommentList = state => {
@@ -126,6 +160,21 @@ const renderAllComments = (state) => {
     state.forEach(renderCommentList)
 }
 
+const getAssigner = () => {
+    getAssigners()
+    .then((data) => {
+        state.assigners = data
+        const assignerTitle = document.querySelector('#vt-user-title')
+        const assignerName = document.querySelector('#vt-user-name')
+        const assignerImg = document.querySelector('#vt-user-img') 
+
+        const assigner = state.assigners.find(user => user.id === state.selected.assigner_id)
+        
+        assignerTitle.innerHTML = ` &ensp; ${assigner.title}`
+        assignerName.innerHTML = ` &ensp; ${assigner.name}`
+        assignerImg.setAttribute("src",`${assigner.image_url}`)
+    })
+}
 
 //************************************************************
 //? Table
@@ -256,6 +305,7 @@ const init = () => {
     getUser()
     .then((user) => {
         state.user = user
+
         summary_tab()
         render_tasks()
         formToggle()

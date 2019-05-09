@@ -25,12 +25,14 @@ ActiveRecord::Schema.define(version: 2019_05_07_125207) do
   create_table "relationships", force: :cascade do |t|
     t.integer "user_id"
     t.integer "assigner_id"
+    t.integer "task_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
   create_table "tasks", force: :cascade do |t|
     t.integer "user_id"
+    t.integer "assigner_id"
     t.string "name"
     t.text "content"
     t.datetime "deadline"
@@ -45,7 +47,6 @@ ActiveRecord::Schema.define(version: 2019_05_07_125207) do
     t.string "name"
     t.string "title"
     t.string "location"
-    t.integer "assigner_id"
     t.string "image_url"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
