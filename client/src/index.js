@@ -2,7 +2,8 @@
 //! Global Variables 
 const state = {
     user: [],
-    selected: null
+    selected: null,
+    comments: []
 }
 
 const page_u = document.querySelector('#page-container')
@@ -10,6 +11,7 @@ const tableBody = document.querySelector('#table-body')
 const view_u = document.querySelector('#view-task')
 const tableDiv = document.querySelector('#task-table')
 const formDiv = document.querySelector('#new-task')
+const viewComments = document.querySelector(".list-group")
 
 
 
@@ -79,14 +81,15 @@ const view_details = () => {
     const viewTaskPriority = document.querySelector("#vt-task-tag")
 
 
-        viewTaskName.innerHTML = `${state.user.tasks[0].name}`
-        viewTaskImage.setAttribute("src", `${state.user.tasks[0].image_url}`)
-        viewTaskDesc.innerHTML = `${state.user.tasks[0].content}`
-        viewTaskDl.innerHTML = `${state.user.tasks[0].deadline}`
-        viewTaskCreated.innerHTML = `${state.user.tasks[0].created_at}`
-        viewTaskUpdated.innerHTML = `${state.user.tasks[0].updated_at}`
+        viewTaskName.innerHTML = `${state.selected.name}`
+        viewTaskImage.setAttribute("src", `${state.selected.image_url}`)
+        viewTaskDesc.innerHTML = `${state.selected.content}`
+        viewTaskDl.innerHTML = `${moment(state.selected.deadline).format("DD/MM/YY - hh:mm A")}`
+        viewTaskCreated.innerHTML = `${moment(state.selected.created_at).format("DD/MM/YY - hh:mm A")}`
+        viewTaskUpdated.innerHTML = `${moment(state.selected.updated_at).format("DD/MM/YY - hh:mm A")}`
+
     //! Status function
-    if (state.user.tasks[0].status === true) {
+    if (state.selected.status === true) {
         viewTaskstatus.setAttribute("class", "btn btn-secondary")
         viewTaskstatus.innerHTML = "Not Fixed"
     } else {
@@ -94,10 +97,10 @@ const view_details = () => {
         viewTaskstatus.innerHTML = "Resolved"
     }
     //! Priority Function
-    if (state.user.tasks[0].tag === "Low") {
+    if (state.selected.tag === "Low") {
         viewTaskPriority.setAttribute("class", "btn btn-info")
         viewTaskPriority.innerHTML = "Low"
-    } else if (state.user.tasks[0].tag === "Medium") {
+    } else if (state.selected.tag === "Medium") {
         viewTaskPriority.setAttribute("class", "btn btn-warning")
         viewTaskPriority.innerHTML = "Medium"
     } else {
@@ -108,26 +111,19 @@ const view_details = () => {
 
 }
 
-const view_comment = () => { 
-    const viewComments = document.querySelector(".list-group")
-    
-
-
-
-}
-const renderCommentList = api => {
-    const viewComments = document.querySelector(".list-group")
+const renderCommentList = state => {
     const li = document.createElement('li')
     
-    li.innerText = api.tasks.comments.content
+    li.innerText = state.content
     li.setAttribute("class", "list-group-item")
 
     viewComments.append(li)
 }
 
 
-const renderAllComments = () => {
-    state.user.tasks.forEach(renderCommentList)
+const renderAllComments = (state) => {
+    viewComments.innerHTML = '' 
+    state.forEach(renderCommentList)
 }
 
 
@@ -172,9 +168,21 @@ const render_task = (task) => {
         if (view_u.style.display === "none") {
             view_u.style.display = "block"
             state.selected = task
+            view_details()
+            getComments(state.selected)
+            .then((data) => {
+                state.comments = data
+                if (viewComments.childElementCount === state.comments.length){
+                    state.comments = []
+
+                } else {
+                    renderAllComments(state.comments)
+                }
+            })
           } else {
             view_u.style.display = "none"
             state.selected = null
+            state.comments = []
           }
     })
 
@@ -248,7 +256,6 @@ const init = () => {
     getUser()
     .then((user) => {
         state.user = user
-        view_details()
         summary_tab()
         render_tasks()
         formToggle()

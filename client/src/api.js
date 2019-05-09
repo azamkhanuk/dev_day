@@ -2,6 +2,7 @@ let userId = 1
 
 const userURL = `http://localhost:3000/users/${userId}`
 const taskURL = `http://localhost:3000/tasks/`
+const commentsURL = `http://localhost:3000/getcomments`
 
 const getUser = () => 
     fetch(userURL)
@@ -38,4 +39,16 @@ fetch(taskURL + `${task.id}`, {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify(task)
+    }).then(resp => resp.json())
+
+const getComments = task => 
+    fetch(commentsURL, {
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            task_id: task.id
+        })
     }).then(resp => resp.json())
