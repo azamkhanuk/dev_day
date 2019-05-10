@@ -169,6 +169,8 @@ const updateTaskStatus = () => {
             state.user.tasks = state.user.tasks.filter(test => test.id != state.selected.id)
             state.user.tasks.push(state.selected)
 
+            render_tasks()
+
         } else {
 
             viewTaskstatus.setAttribute("class", "btn btn-secondary")
@@ -180,6 +182,7 @@ const updateTaskStatus = () => {
             state.user.tasks = state.user.tasks.filter(test => test.id != state.selected.id)
             state.user.tasks.push(state.selected)
 
+            render_tasks()
         }
     })
 }
