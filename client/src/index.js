@@ -13,10 +13,21 @@ const view_u = document.querySelector('#view-task')
 const tableDiv = document.querySelector('#task-table')
 const formDiv = document.querySelector('#new-task')
 const viewComments = document.querySelector(".list-group")
+const editForm = document.querySelector('#edit-task')
+
 let counter = 1
 
-
-
+const homepage = () => {
+    const devDay = document.querySelector('#nav-brand')
+    devDay.addEventListener('click', () => {
+        if (formDiv.style.display === "block" || view_u.style.display === "block" || editForm.style.display === 'block') {
+            formDiv.style.display = "none"
+            view_u.style.display = "none"
+            editForm.style.display = 'none'
+            tableDiv.style.display = "block"
+          }
+    })
+}
 
 //************************************************************
 //? New Form
@@ -27,10 +38,12 @@ const formToggle = () => {
         if (formDiv.style.display === "none") {
             formDiv.style.display = "block"
             view_u.style.display = "none"
+            editForm.style.display = 'none'
             tableDiv.style.display = "none"
         } else {
             formDiv.style.display = "none"
             view_u.style.display = "none"
+            editForm.style.display = 'none'
             tableDiv.style.display = "block"          
         }
      })
@@ -40,12 +53,6 @@ const formToggle = () => {
 const createForm = () => {
     submitBtn = document.querySelector('#new-form-submit')
     form = document.querySelector('#form-task')
-
-    getAssigners()
-    .then((data) => {
-        state.assigners = data
-        renderAssigners()
-    })
 
     submitBtn.addEventListener('click', event => {
         event.preventDefault()
@@ -240,9 +247,15 @@ const render_tasks = () => {
 
 const render_task = (task) => {
     const tr = document.createElement('tr')
+
+    const assigner = state.assigners.find(user => user.id === task.assigner_id)
+    const user = state.assigners.find(user => user.id === task.user_id)
+
     tr.innerHTML = `
     <th scope="row">${counter}</th>
     <td>${task.name}</td>
+    <td>${assigner.name}</td>
+    <td>${user.name}</td>
     <td>${task.content}</td>
     <td>${moment(task.deadline).format("DD/MM/YY - hh:mm A")}</td>
     <td>${task.tag}</td>
@@ -296,43 +309,60 @@ const render_task = (task) => {
         counter --
     })
 
-    // const edit = tr.querySelector('#edit-button')
-    // edit.addEventListener('click', () => {
-    //     state.selected = task
+    const edit = tr.querySelector('#edit-button')
+    edit.addEventListener('click', () => {
+        editForm.style.display = 'block'
 
-    //     const editForm = document.querySelector('#edit-task')
-    //     tableDiv.style.display = 'none'
-    //     editForm.style.display = 'block'
+        document.querySelector('#edit-name').value = task.name
+        document.querySelector('#edit-content').value = task.content
+        document.querySelector('#edit-image').value = task.image_url
+        document.querySelector('#edit-deadline').value = task.deadline
 
-    //     document.querySelector('#edit-name').value = state.selected.name
-    //     document.querySelector('#edit-content').value = state.selected.content
-    //     document.querySelector('#edit-image').value = state.selected.image_url
+        const editSubmitBtn = document.querySelector('#edit-form-submit')
+        
+        editSubmitBtn.addEventListener('click', () => {
+            const newTask = {
+                id: task.id,
+                user_id: 1,
+                assigner_id: optionsEditValue(),
+                name: document.querySelector('#edit-name').value,
+                content: document.querySelector('#edit-content').value,
+                image_url: document.querySelector('#edit-image').value,
+                deadline: formatDate(document.querySelector('#edit-deadline').value),
+                status: task.status,
+                tag: document.querySelector('.btn-secondary.active').innerText
+            }
 
-    //     const 'edit-form-submit'
-    //     const newTask = {
-    //         user_id: 1,
-    //         name: document.querySelector('#edit-name').value,
-    //         content: document.querySelector('#edit-content').value,
-    //         image_url: document.querySelector('#edit-image').value,
-    //         deadline: formatDate(document.querySelector('#edit-deadline').value),
-    //         status: true,
-    //         tag: document.querySelector('.btn-secondary.active').innerText
-    //     }
-    //     tr.remove()
-    //     updateTask(newTask)
-    //         .then(render_task(newTask))
-    // })
+            tr.remove()
+            updateTask(newTask)
+            getUser()
+                .then((user) => {
+                    state.user = user
+                    render_tasks()
+                })
+            editForm.style.display = 'none'
+        })
+    })
 }
 
-const homepage = () => {
-    const devDay = document.querySelector('#nav-brand')
-    devDay.addEventListener('click', () => {
-        if (formDiv.style.display === "block" || view_u.style.display === "block") {
-            formDiv.style.display = "none"
-            view_u.style.display = "none"
-            tableDiv.style.display = "block"
-        }
-    })
+const optionsEditValue = () => {
+    const sel = document.getElementById('assigner-edit-select')
+    const opt = sel.options[sel.selectedIndex]
+    const value = parseInt(opt.value)
+    return value
+}
+
+const renderEditAssigners = () => {
+    const assignerSelect = document.getElementById('assigner-edit-select')
+    assignerSelect.innerHTML = ''
+    state.assigners.forEach(renderEditAssigner)
+}
+
+const renderEditAssigner = assigner => {
+    const assignerSelect = document.getElementById('assigner-edit-select')
+    assignerSelect.innerHTML += `
+    <option value=${assigner.id}>${assigner.name}</option>
+    `
 }
 
 //************************************************************
@@ -388,12 +418,15 @@ const render_employees = () => {
 const init = () => {
     getUser()
     .then((user) => {
-        state.user = user
-
+        state.user = user[0]
+        state.assigners = user
         summary_tab()
         render_tasks()
         formToggle()
         render_employees()
+        renderAssigners()
+        renderEditAssigners()
+
     })
     createForm()
     homepage()

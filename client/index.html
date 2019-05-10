@@ -24,6 +24,8 @@
 
     <body>
 
+<!-- PAGE HEADER -->
+
         <nav class="navbar navbar-inverse navbar-fixed-top">
             <div class="container">
                 <div class="navbar-header">
@@ -35,6 +37,8 @@
             </div>
         </nav>
 
+<!-- USER SUMMARY -->
+
         <div class="jumbotron">
             <div class="container">
                 <h1 id="user-welcome"></h1>
@@ -44,17 +48,22 @@
             </div>
         </div>
 
-        <div class="container" id="page-container"> <!-- Container Start -->
+<!-- ENTIRE PAGE -->
 
-            <div class="container" id="new-task" style="display:none"> <!-- New Form Start --> 
+        <div class="container" id="page-container">
+<!-- NEW FORM -->
+            <div class="container" id="new-task" style="display:none">
                 <form class="form-horizontal" id="form-task">
-                    <div class="form-group">
-                        <label for="exampleFormControlSelect1">Assign to:</label>
-                        <select class="form-control" id="assigner-select">
-                            <!-- <option value="1" >1</option> -->
-                        </select>
-                    </div>
+<!-- NEW FORM ASSIGN  TO-->
+                        <div class="form-group">
+                                <label for="exampleFormControlSelect1">Assign to:</label>
+                                <select class="form-control" id="assigner-select">
+                                  <!-- <option value="1" >1</option> -->
+                                </select>
+                              </div>
 
+
+<!-- NEW FORM TITLE -->
 
                     <div class="form-group">
                         <label for="inputEmail3" class="col-sm-2 control-label">Title:</label>
@@ -62,6 +71,7 @@
                             <input type="title" class="form-control" id="input-name" placeholder="Name your Task">
                         </div>
                     </div>
+<!-- NEW FORM DESC -->
                     <div class="form-group">
                         <label for="inputPassword3" class="col-sm-2 control-label">Description:</label>
                         <div class="col-sm-10">
@@ -69,6 +79,8 @@
                                 placeholder="Write a description for the Task"></textarea>
                         </div>
                     </div>
+
+<!-- NEW FORM PRIORITY-->
 
                     <div class="container">
                         <div>
@@ -89,13 +101,15 @@
                         <br>
                     </div>
 
+<!-- NEW FORM IMAGE INPUT -->
+
                     <div class="form-group">
                         <label for="inputPassword3" class="col-sm-2 control-label">Image:</label>
                         <div class="col-sm-10">
                             <input type="title" class="form-control" id="input-image" placeholder="Image Link">
                         </div>
                     </div>
-
+<!-- NEW FORM DATEPICKER -->
                     <br>
                     <div class="container">
                         <input id="input-deadline" width="312" />
@@ -111,24 +125,67 @@
                     <br>
                     <button type="submit" value="Submit" class="btn btn-primary" id="new-form-submit">Submit</button>
                 </form>
-            </div> <!-- /New Form End -->
+            </div>
+<!-- TABLE -->
+            <div id="task-table" style="display:block">
+<!-- TABLE HEADERS -->
+                <table class="table">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th>#</th>
+                            <th>Title</th>
+                            <th>Assigned To</th>
+                            <th>Assigned By</th>
+                            <th>Description</th>
+                            <th>Deadline</th>
+                            <th>Priority</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+<!-- TABLE BODY -->
 
-
-            <div class="container" id="edit-task" style="display:none"> <!-- Edit Form -->
+                    <tbody id="table-body">
+                        <tr>
+                            <th scope="row">1</th>
+                            <td>Fix nb_09 textures</td>
+                            <td>replace building</td>
+                            <td>15th July</td>
+                            <td>
+                                <input class="btn btn-default" type="button" value="View Details">
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+<!-- EDIT FORM -->
+            <div class="container" id="edit-task" style="display:none">
                     <form class="form-horizontal" id="edit-form-task">
+<!-- EDIT FORM ASSIGN TO -->
+                            <div class="form-group">
+                                    <label for="exampleFormControlSelect1">Assign to:</label>
+                                    <select class="form-control" id="assigner-edit-select">
+                                      <!-- <option value="1" >1</option> -->
+                                    </select>
+                                  </div>
+<!-- EDIT FORM TITLE -->
                         <div class="form-group">
-                            <label for="inputEmail3" class="col-sm-2 control-label">Title:</label>
+                            <label for="inputEmail3" class="col-sm-2 control-label">Edit Title:</label>
                             <div class="col-sm-10">
                                 <input type="title" class="form-control" id="edit-name" placeholder="Name your Task">
                             </div>
                         </div>
+<!-- EDIT FORM DESCRIPTION -->
+
                         <div class="form-group">
-                            <label for="inputPassword3" class="col-sm-2 control-label">Description:</label>
+                            <label for="inputPassword3" class="col-sm-2 control-label">Edit Description:</label>
                             <div class="col-sm-10">
                                 <textarea class="form-control" id="edit-content" rows="3"
                                     placeholder="Write a description for the Task"></textarea>
                             </div>
                         </div>
+
+<!-- EDIT FORM PRIORITY -->
     
                         <div class="container">
                             <div>
@@ -149,6 +206,7 @@
                             <br>
                         </div>
     
+<!-- EDIT FORM IMAGE -->
     
                         <div class="form-group">
                             <label for="inputPassword3" class="col-sm-2 control-label">Image:</label>
@@ -158,6 +216,7 @@
                         </div>
     
                         <br>
+<!-- EDIT FORM DATE -->
                         <div class="container">
                             <input id="edit-deadline" width="312" />
                             <script>
@@ -172,38 +231,7 @@
                         <br>
                         <button type="submit" value="Submit" class="btn btn-primary" id="edit-form-submit">Submit</button>
                     </form>
-                </div> <!-- /Edit Form End -->
-
-
-
-            <div id="task-table" style="display:block"> <!-- Table Start -->
-
-                <table class="table">
-                    <thead class="thead-dark">
-                        <tr>
-                            <th>#</th>
-                            <th>Title</th>
-                            <th>Description</th>
-                            <th>Deadline</th>
-                            <th>Priority</th>
-                            <th>Status</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody id="table-body">
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>Fix nb_09 textures</td>
-                            <td>replace building</td>
-                            <td>15th July</td>
-                            <td>
-                                <input class="btn btn-default" type="button" value="View Details">
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            
+                </div>
             <div class="my-3 p-3 bg-white rounded shadow-sm" id="view-task" style="display:none">
 <!-- ASSIGNER DETAILS - TASK TITLE AT TOP -->
                 <br>
