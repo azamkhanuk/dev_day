@@ -14,16 +14,19 @@ const tableDiv = document.querySelector('#task-table')
 const formDiv = document.querySelector('#new-task')
 const viewComments = document.querySelector(".list-group")
 const editForm = document.querySelector('#edit-task')
+const viewTeamDiv = document.querySelector('#view-team-div')
+
 
 let counter = 1
 
 const homepage = () => {
     const devDay = document.querySelector('#nav-brand')
     devDay.addEventListener('click', () => {
-        if (formDiv.style.display === "block" || view_u.style.display === "block" || editForm.style.display === 'block') {
+        if (formDiv.style.display === "block" || view_u.style.display === "block" || editForm.style.display === 'block' || viewTeamDiv.style.display === 'block') {
             formDiv.style.display = "none"
             view_u.style.display = "none"
             editForm.style.display = 'none'
+            viewTeamDiv.style.display = 'none'
             tableDiv.style.display = "block"
           }
     })
@@ -40,10 +43,12 @@ const formToggle = () => {
             view_u.style.display = "none"
             editForm.style.display = 'none'
             tableDiv.style.display = "none"
+            viewTeamDiv.style.display = 'none'
         } else {
             formDiv.style.display = "none"
             view_u.style.display = "none"
             editForm.style.display = 'none'
+            viewTeamDiv.style.display = 'none'
             tableDiv.style.display = "block"          
         }
      })
@@ -152,27 +157,29 @@ const view_details = () => {
 
 const updateTaskStatus = () => {
     const viewTaskstatus = document.querySelector("#vt-task-status")
-    viewTaskstatus.addEventListener('click', () => {
-        if (state.selected.status === true) {
+    viewTaskstatus.addEventListener('dblclick', () => {
+        if (state.selected.status) {
+
             viewTaskstatus.setAttribute("class", "btn btn-success")
             viewTaskstatus.innerHTML = "Resolved"
             state.selected.status = false
+
             updateTask(state.selected)
-            getUser()
-                .then((user) => {
-                    state.user = user
-                    render_tasks()
-            })
+
+            state.user.tasks = state.user.tasks.filter(test => test.id != state.selected.id)
+            state.user.tasks.push(state.selected)
+
         } else {
+
             viewTaskstatus.setAttribute("class", "btn btn-secondary")
             viewTaskstatus.innerHTML = "Pending"
             state.selected.status = true
+
             updateTask(state.selected)
-            getUser()
-                .then((user) => {
-                    state.user = user
-                    render_tasks()
-            })
+
+            state.user.tasks = state.user.tasks.filter(test => test.id != state.selected.id)
+            state.user.tasks.push(state.selected)
+
         }
     })
 }
@@ -222,9 +229,6 @@ const renderAllComments = (state) => {
 }
 
 const getAssigner = () => {
-    getAssigners()
-    .then((data) => {
-        state.assigners = data
         const assignerTitle = document.querySelector('#vt-user-title')
         const assignerName = document.querySelector('#vt-user-name')
         const assignerImg = document.querySelector('#vt-user-img') 
@@ -234,7 +238,6 @@ const getAssigner = () => {
         assignerTitle.innerHTML = ` &ensp; ${assigner.title}`
         assignerName.innerHTML = ` &ensp; ${assigner.name}`
         assignerImg.setAttribute("src",`${assigner.image_url}`)
-    })
 }
 
 //************************************************************
@@ -269,9 +272,10 @@ const render_task = (task) => {
 
     tr.innerHTML += `
     <td>
-        <input class="btn btn-default" id="view-button" type="button" value="V">
-        <input class="btn btn-default" id="edit-button" type="button" value="E">
-        <input class="btn btn-default" id="delete-button" type="button" value="D">
+        <input class="btn btn-dark" id="view-button" type="button" value="View">
+        <input class="btn btn-dark" id="edit-button" type="button" value="Edit">
+        <input class="btn btn-dark" id="delete-button" type="button" value="Delete">
+
     </td>
     `
 
@@ -283,6 +287,7 @@ const render_task = (task) => {
     viewBtn.addEventListener('click', () => {
         if (view_u.style.display === "none") {
             view_u.style.display = "block"
+            editForm.style.display = 'none'
             state.selected = task
             view_details()
             getComments(state.selected)
@@ -304,44 +309,50 @@ const render_task = (task) => {
 
     const delBtn = tr.querySelector('#delete-button')
     delBtn.addEventListener('click', () => {
-        deleteTask(task)
         tr.remove()
         counter --
+
+        deleteTask(task)
+        state.user.tasks = state.user.tasks.filter(test => test.id != task.id)
+        render_tasks()
     })
 
     const edit = tr.querySelector('#edit-button')
     edit.addEventListener('click', () => {
-        editForm.style.display = 'block'
+        if (editForm.style.display === 'none') {
+            editForm.style.display = 'block'
+            view_u.style.display = "none"
+            document.querySelector('#edit-name').value = task.name
+            document.querySelector('#edit-content').value = task.content
+            document.querySelector('#edit-image').value = task.image_url
+            document.querySelector('#edit-deadline').value = task.deadline
+    
+            const editSubmitBtn = document.querySelector('#edit-form-submit')
+            
+            editSubmitBtn.addEventListener('click', () => {
+                const newTask = {
+                    id: task.id,
+                    user_id: 1,
+                    assigner_id: optionsEditValue(),
+                    name: document.querySelector('#edit-name').value,
+                    content: document.querySelector('#edit-content').value,
+                    image_url: document.querySelector('#edit-image').value,
+                    deadline: formatDate(document.querySelector('#edit-deadline').value),
+                    status: task.status,
+                    tag: document.querySelector('.btn-secondary.active').innerText
+                }
+    
+                tr.remove()
+                updateTask(newTask)
+                state.user.tasks = state.user.tasks.filter(test => test.id != task.id)
+                state.user.tasks.push(newTask)
 
-        document.querySelector('#edit-name').value = task.name
-        document.querySelector('#edit-content').value = task.content
-        document.querySelector('#edit-image').value = task.image_url
-        document.querySelector('#edit-deadline').value = task.deadline
-
-        const editSubmitBtn = document.querySelector('#edit-form-submit')
-        
-        editSubmitBtn.addEventListener('click', () => {
-            const newTask = {
-                id: task.id,
-                user_id: 1,
-                assigner_id: optionsEditValue(),
-                name: document.querySelector('#edit-name').value,
-                content: document.querySelector('#edit-content').value,
-                image_url: document.querySelector('#edit-image').value,
-                deadline: formatDate(document.querySelector('#edit-deadline').value),
-                status: task.status,
-                tag: document.querySelector('.btn-secondary.active').innerText
-            }
-
-            tr.remove()
-            updateTask(newTask)
-            getUser()
-                .then((user) => {
-                    state.user = user
-                    render_tasks()
-                })
+                render_tasks()
+                editForm.style.display = 'none'
+            })
+        } else {
             editForm.style.display = 'none'
-        })
+        }
     })
 }
 
@@ -385,29 +396,43 @@ const summary_tab = () => {
 //? View Team
 
 const render_team = member => {
-    const viewTeamBtn = document.querySelector('#view-team-btn')
-    const employees = document.querySelector('#employee-cards')
+    const employees = document.querySelector('#employee-card-row')
 
     employeeCard = document.createElement('div')
-
+    employeeCard.className = "col-md-4"
     employeeCard.innerHTML = 
     `
-    <div class="row">
-        <div class="col-md-4">
             <div class="single-team">
                 <img src="${member.image_url}" alt="">
                 <div class="team-hover">
                     <h4>${member.name} <span>${member.title}</span><span>${member.location}</span></h4>
                 </div>
             </div>
-        </div>
-    </div>
     `
-    employeeCard.append(employees)
+    employees.append(employeeCard)
 }
 
 const render_employees = () => {
 	state.assigners.forEach(render_team)
+}
+
+const viewTeamToggle = () => {
+    const viewTeamBtn = document.querySelector('#view-team-btn')
+    viewTeamBtn.addEventListener('click', () => {
+        if (viewTeamDiv.style.display === 'none') {
+            viewTeamDiv.style.display = 'block'
+            formDiv.style.display = "none"
+            view_u.style.display = "none"
+            editForm.style.display = 'none'
+            tableDiv.style.display = "none"
+        } else {
+            formDiv.style.display = "none"
+            view_u.style.display = "none"
+            editForm.style.display = 'none'
+            viewTeamDiv.style.display = 'none'
+            tableDiv.style.display = "block"          
+        }
+    })
 }
 
 
@@ -430,8 +455,7 @@ const init = () => {
     })
     createForm()
     homepage()
-    
-    
+    viewTeamToggle()
 }
 
 init()

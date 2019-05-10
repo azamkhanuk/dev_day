@@ -15,37 +15,56 @@ User.destroy_all
 Task.destroy_all
 Comment.destroy_all
 
+# rand(5000..75000)
 
-User.create(name:'Scott', title: 'TCA Lead', location: 'R* North', image_url: 'https://png.pngtree.com/svg/20170505/b6219c949e.svg')
+User.create(name:'Peter Keller', title: 'Junior Dev', location: 'London', image_url: 'https://i.imgur.com/VEmwYyW.png')
 
-Task.create(assigner_id: 1, user_id: 1, name: 'Fix lod - NB_01', content: 'Sam level lod plz', 
-            deadline: Time.at(Time.now.to_i + 46200), status: true, image_url: 'https://png.pngtree.com/svg/20170505/b6219c949e.svg', tag: 'High')
+    Task.create(assigner_id: rand(1..4), user_id: 1, name: 'Fix auth for signup', content: 'Discuss with Ranjit and sort out what we need to do', 
+                deadline: Time.at(Time.now.to_i + rand(5000..75000)), status: true, image_url: 'https://www.codica.com/blog/top-ruby-gems-we-cant-live-without/Ruby-JWT-codica.jpg', tag: 'High')
 
-Comment.create(task_id: 1, content: 'fix this shit yo')
+        Comment.create(task_id: 1, content: 'Good progress')
 
-Task.create(assigner_id: 2, user_id: 1, name: 'new lods', content: 'remake all the lods in the game', 
-    deadline: Time.at(Time.now.to_i + 70000), status: false, image_url: 'https://png.pngtree.com/svg/20170505/b6219c949e.svg', tag: 'Medium')
+    Task.create(assigner_id: rand(1..4), user_id: 1, name: 'New feature- Group chat', content: 'Add Feature to have a group chat', 
+        deadline: Time.at(Time.now.to_i + rand(5000..75000)), status: false, image_url: 'https://pics.me.me/when-two-people-use-the-group-chat-for-a-1-on-1-2530512.png', tag: 'Medium')
 
-Comment.create(task_id: 2, content: 'adadad')
-Comment.create(task_id: 2, content: 'fix this saadad')
-Comment.create(task_id: 2, content: 'fix adad')
+        Comment.create(task_id: 2, content: 'Seems to be going well')
+        Comment.create(task_id: 2, content: 'Needs some work')
+        Comment.create(task_id: 2, content: 'Almost There')
+
+    Task.create(assigner_id: rand(1..4), user_id: 1, name: 'Fix delete button', content: 'Delete button doesnt work', 
+        deadline: Time.at(Time.now.to_i + rand(5000..75000)), status: true, image_url: 'http://images3.memedroid.com/images/UPLOADED484/5b4db5448fb57.jpeg', tag: 'Low')
+
+        Comment.create(task_id: 3, content: 'Almost there')
+        Comment.create(task_id: 3, content: 'Ranjit helping me out')
+
+User.create(name:'Ranjit Saimbi', title: 'Junior Full Stack', location: 'Paris', image_url: 'https://i.imgur.com/8L11N4F.png')
+
+    Task.create(assigner_id: rand(1..4), user_id: 2, name: 'Switch sql database', content: 'Can you switch the database from sql to mongo please', 
+        deadline: Time.at(Time.now.to_i + rand(5000..75000)), status: true, image_url: 'https://bensonnjonjo.files.wordpress.com/2013/04/code-bg.png', tag: 'Medium')
+
+        Comment.create(task_id: 4, content: 'Test needs testing')
+        Comment.create(task_id: 1, content: 'Good job so far')
 
 
-Task.create(assigner_id: 2, user_id: 1, name: 'new lods for church', content: 'remake SD', 
-    deadline: Time.at(Time.now.to_i + 55400), status: true, image_url: 'https://png.pngtree.com/svg/20170505/b6219c949e.svg', tag: 'Low')
+User.create(name:'Manon Jacquin', title: 'Junior Full Stack', location: 'Dublin', image_url: 'https://i.imgur.com/iEQwWA3.png')
 
-Comment.create(task_id: 3, content: 'adaadadd')
-Comment.create(task_id: 3, content: 'fixadads saadad')
-Comment.create(task_id: 3, content: 'fix adad')
-Comment.create(task_id: 3, content: 'adadad')
-Comment.create(task_id: 3, content: 'fix adadhis saadad')
-Comment.create(task_id: 3, content: 'fix adadad')
+    Task.create(assigner_id: rand(1..4), user_id: 3, name: 'Sort data and optimise', content: 'Our data is not in hand right now, can you take a look', 
+        deadline: Time.at(Time.now.to_i + rand(5000..75000)), status: true, image_url: 'http://1.bp.blogspot.com/-JKZ_l0SxQN0/Uy2y12GqMsI/AAAAAAAAAHc/kyurVPQ6LqE/s1600/static-non-static.jpg', tag: 'High')
 
-User.create(name:'Tim', title: 'Junior TCA', location: 'R* Leeds', image_url: 'https://png.pngtree.com/svg/20170505/b6219c949e.svg')
+        Comment.create(task_id: 4, content: 'Making progress')
 
-Task.create(assigner_id: 1, user_id: 2, name: 'Bank needs more dirt', content: 'Aaron lod plz', 
-    deadline: Time.at(Time.now.to_i + 66200), status: true, image_url: 'https://png.pngtree.com/svg/20170505/b6219c949e.svg', tag: 'Jack, D class')
+    
+    Task.create(assigner_id: rand(1..4), user_id: 3, name: 'Adopt node.js into our new project', content: 'Can you add node.js to our new top super secret project', 
+    deadline: Time.at(Time.now.to_i + rand(5000..75000)), status: false, image_url: 'https://webat.net/wp-content/uploads/2018/12/phpcodesnippets-humanreadable-712x325.png', tag: 'Medium')
 
-Comment.create(task_id: 4, content: 'Test needs testing')
-Comment.create(task_id: 1, content: 'Beast Mode')
+        Comment.create(task_id: 1, content: 'Nice making progress')
+        Comment.create(task_id: 1, content: 'Seems really easy so far')
+        Comment.create(task_id: 1, content: 'Finished')
 
+        
+User.create(name:'Azam Khan', title: 'Lead Full Stack Engineer', location: 'New York', image_url: 'https://i.imgur.com/nyalF7J.png')
+
+    Task.create(assigner_id: 4, user_id: 4, name: 'Meeting with team', content: 'Go over new features from our VP', 
+    deadline: Time.at(Time.now.to_i + rand(5000..75000)), status: true, image_url: 'https://cdn-images-1.medium.com/max/2400/0*aEvz1gdQhix8dzTi', tag: 'High')
+
+        Comment.create(task_id: 4, content: 'Meeting went well')

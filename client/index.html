@@ -23,33 +23,48 @@
     </head>
 
     <body>
-
 <!-- PAGE HEADER -->
-
         <nav class="navbar navbar-inverse navbar-fixed-top">
             <div class="container">
                 <div class="navbar-header">
                     <a class="navbar-brand" id="nav-brand" href="#">DevDay</a>
                     <input class="btn btn-default" id="new-task-btn" type="button" value="New Task">
                     <input class="btn btn-default" id="view-team-btn" type="button" value="View Team">
-                    <input class="btn btn-default" id="contact-manager-btn" type="button" value="Contact Manager">
                 </div>
             </div>
         </nav>
 
 <!-- USER SUMMARY -->
-
         <div class="jumbotron">
             <div class="container">
-                <h1 id="user-welcome"></h1>
-                <p id="tasks-summary">You have X tasks remaining.</p>
-                <p id="timeLeft-summary">{title} is due in {time remaining}</p>
-                <!-- <img src="https://png.pngtree.com/svg/20170505/b6219c949e.svg" alt="..." class="img-rounded"> -->
+                
             </div>
+            <div class="container">
+                    <div class="row">
+                      <div class="col">
+                            <h1 id="user-welcome"></h1>
+                            <p id="tasks-summary">You have X tasks remaining.</p>
+                        <p id="timeLeft-summary">{title} is due in {time remaining}</p>
+
+                      </div>
+                      <div class="col">
+                        <img src="https://i.imgur.com/VEmwYyW.png" alt="..." class="img-rounded" width="150" height="150">
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col">
+
+                      </div>
+                      <div class="col">
+
+                      </div>
+                      <div class="col">
+
+                      </div>
+                    </div>
+                  </div>
         </div>
-
 <!-- ENTIRE PAGE -->
-
         <div class="container" id="page-container">
 <!-- NEW FORM -->
             <div class="container" id="new-task" style="display:none">
@@ -232,8 +247,8 @@
                         <button type="submit" value="Submit" class="btn btn-primary" id="edit-form-submit">Submit</button>
                     </form>
                 </div>
-            <div class="my-3 p-3 bg-white rounded shadow-sm" id="view-task" style="display:none">
 <!-- ASSIGNER DETAILS - TASK TITLE AT TOP -->
+            <div class="my-3 p-3 bg-white rounded shadow-sm" id="view-task" style="display:none">
                 <br>
                 <h5 class="border-bottom border-gray pb-2 mb-0" id= "vt-task-name">Task Title</h5>
                 <br>
@@ -323,33 +338,22 @@
 <!-- 00000000000000000000000000             -->
 
             <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700|Poppins:400,500,600,700" rel="stylesheet"> 
-            <section class="team-area pt-100 pb-100" id="team">
-                    <div class="container" id="employee-cards"> 
-
-                        <!-- TEAM BANNER -->
-
-                        <div class="row">
-                            <div class="col-xl-8 mx-auto text-center">
-                                <div class="section-title">
-                                    <h4>The super team!</h4>
-                                    <p>All your colleagues and where they work!</p>
-                                </div>
+            <section class="team-area pt-100 pb-100" id="team-section">
+<!-- TEAM DIV -->
+    <div class="container" id="view-team-div" style="display:none"> 
+                <div class="row">
+                        <div class="col-xl-8 mx-auto text-center">
+                            <div class="section-title">
+                                <h4>The super team!</h4>
+                                <p>All your colleagues and where they work!</p>
                             </div>
                         </div>
+                    </div>
 
-                        <!-- EMPLOYEE CARDS -->
+<!-- EMPLOYEE CARDS -->
 
-                        <div class="row">
-                            <div class="col-md-4">
-                                <div class="single-team">
-                                    <img src="http://infinityflamesoft.com/html/xenon-preview/assets/img/team/team1.jpg" alt="">
-                                    <div class="team-hover">
-                                        <h4>NAME <span>TITLE</span></h4>
-                                    </div>
-                                </div>
-                            </div>
+                       <div class="row" id="employee-card-row">
                         </div>
-
 
                     </div>
             </section>
