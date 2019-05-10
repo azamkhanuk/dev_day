@@ -381,6 +381,36 @@ const summary_tab = () => {
     tasksLeft.innerHTML = `You have <strong>${state.user.tasks.length}</strong> tasks`
     timeLeft.innerHTML = `${state.user.tasks[0].name} is due in <strong>${diff._data.hours} hrs ${diff._data.minutes} mins</strong>`
 }
+//************************************************************
+//? View Team
+
+const render_team = member => {
+    const viewTeamBtn = document.querySelector('#view-team-btn')
+    const employees = document.querySelector('#employee-cards')
+
+    employeeCard = document.createElement('div')
+
+    employeeCard.innerHTML = 
+    `
+    <div class="row">
+        <div class="col-md-4">
+            <div class="single-team">
+                <img src="${member.image_url}" alt="">
+                <div class="team-hover">
+                    <h4>${member.name} <span>${member.title}</span><span>${member.location}</span></h4>
+                </div>
+            </div>
+        </div>
+    </div>
+    `
+    employeeCard.append(employees)
+}
+
+const render_employees = () => {
+	state.assigners.forEach(render_team)
+}
+
+
 
 //************************************************************
 //? Init
@@ -393,11 +423,15 @@ const init = () => {
         summary_tab()
         render_tasks()
         formToggle()
+        render_employees()
         renderAssigners()
         renderEditAssigners()
+
     })
     createForm()
     homepage()
+    
+    
 }
 
 init()
