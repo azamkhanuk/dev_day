@@ -8,7 +8,7 @@ const commentsURL = `http://localhost:3000/comments/`
 
 //! USER
 const getUser = () => 
-    fetch(userURL)
+    fetch('http://localhost:3000/users/')
     .then(resp => resp.json())
 
 
@@ -71,10 +71,6 @@ const getComments = task =>
             task_id: task.id
         })
     }).then(resp => resp.json())
-
-const getAssigners =  () =>
-    fetch('http://localhost:3000/users/')
-    .then(resp => resp.json())
 
 const createComment = comment => 
     fetch(commentsURL, {
