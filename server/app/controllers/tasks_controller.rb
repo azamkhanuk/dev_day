@@ -29,13 +29,12 @@ class TasksController < ApplicationController
 
     def update
         task = Task.find_by(id: params[:id])
-
-        if task.save
+        if task
+            task.update(taskparams)
             render json: task
         else
             render json: {error: 'Nope, not here.'}, status: 400
         end
-
     end
 
     def index
@@ -54,5 +53,11 @@ class TasksController < ApplicationController
         else
             render json: {error: 'Nope, not here.'}, status: 404
         end
+    end
+
+    private
+
+    def taskparams
+        params.require(:task).permit(:id, :name, :user_id, :content, :tag, :status, :assigner_id, :image_url)
     end
 end

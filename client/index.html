@@ -270,21 +270,29 @@
                 </div>
 <!-- COMMENTS -->
                 <div class="media text-muted pt-3">
+                        <div class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
+                                <figcaption class="figure-caption"><em>Comments:&ensp;&ensp;</em></figcaption>                
+                            <div class="d-flex justify-content-between align-items-center w-100"> 
+                                    <br>
+                                    <button type="button" class="btn btn-primary" id="add-comment-btn">Add Comment</button>
+                            </div>
+                            <div class="form-group" id="comment-box" style="display:none">
+                                <label for="exampleFormControlTextarea1">Enter below:</label>
+                                <textarea class="form-control" id="add-comment-box" rows="2"></textarea>
+                                <br>
+                                <button class="btn btn-primary" type="submit" id="new-comment-submit">Submit</button>
+                            </div>
+                        </div>
+                </div>
+                <div class="media text-muted pt-3">                   
                     <div class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
-                        <figcaption class="figure-caption"><em>Comments:</em></figcaption>
-                        <br>
                         <ul class="list-group" id="vt-task-comments">
-                            <!-- <li class="list-group-item">Cras justo odio</li>
-                            <li class="list-group-item">Dapibus ac facilisis in</li>
-                            <li class="list-group-item">Morbi leo risus</li>
-                            <li class="list-group-item">Porta ac consectetur ac</li>
-                            <li class="list-group-item">Vestibulum at eros</li> -->
                         </ul>
                     </div>
                 </div>
-            </div>
-        </div>
 
+
+            </div>
         </div> <!-- /container -->
     </body>
 

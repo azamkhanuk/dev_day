@@ -17,4 +17,16 @@ class CommentsController < ApplicationController
             render json: {error: 'Nope, not here.'}, status: 404
         end
     end
+
+    def create
+        comment = Comment.new(
+            content: params[:content],
+            task_id: params[:task_id]
+        )
+        if comment.save
+            render json: comment
+        else
+            render json: {error: 'Nope, not here.'}, status: 400
+        end
+    end
 end

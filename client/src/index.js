@@ -13,6 +13,7 @@ const view_u = document.querySelector('#view-task')
 const tableDiv = document.querySelector('#task-table')
 const formDiv = document.querySelector('#new-task')
 const viewComments = document.querySelector(".list-group")
+let counter = 1
 
 
 
@@ -121,7 +122,7 @@ const view_details = () => {
     //! Status function
     if (state.selected.status === true) {
         viewTaskstatus.setAttribute("class", "btn btn-secondary")
-        viewTaskstatus.innerHTML = "Not Fixed"
+        viewTaskstatus.innerHTML = "Pending"
     } else {
         viewTaskstatus.setAttribute("class", "btn btn-success")
         viewTaskstatus.innerHTML = "Resolved"
@@ -137,18 +138,71 @@ const view_details = () => {
         viewTaskPriority.setAttribute("class", "btn btn-danger")
         viewTaskPriority.innerHTML = "High"
     }
-
-
     getAssigner()
-
-
-
+    newComment()
+    updateTaskStatus()
 }
 
-const renderCommentList = state => {
+const updateTaskStatus = () => {
+    const viewTaskstatus = document.querySelector("#vt-task-status")
+    viewTaskstatus.addEventListener('click', () => {
+        if (state.selected.status === true) {
+            viewTaskstatus.setAttribute("class", "btn btn-success")
+            viewTaskstatus.innerHTML = "Resolved"
+            state.selected.status = false
+            updateTask(state.selected)
+            getUser()
+                .then((user) => {
+                    state.user = user
+                    render_tasks()
+            })
+        } else {
+            viewTaskstatus.setAttribute("class", "btn btn-secondary")
+            viewTaskstatus.innerHTML = "Pending"
+            state.selected.status = true
+            updateTask(state.selected)
+            getUser()
+                .then((user) => {
+                    state.user = user
+                    render_tasks()
+            })
+        }
+    })
+}
+
+const newComment = () => {
+    const commentBtn = document.querySelector('#add-comment-btn')
+    const commentDiv = document.querySelector('#comment-box')
+    const commentText = document.querySelector('#add-comment-box')
+    const submitBtn = document.querySelector('#new-comment-submit')
+
+    commentBtn.addEventListener('click', () => {
+        if (commentDiv.style.display === "none") {
+            commentDiv.style.display = "block"
+        } else {
+            commentDiv.style.display = "none"        
+        }
+        submitBtn.addEventListener('click', () => {
+            const comment = {
+                content: commentText.value,
+                task_id: state.selected.id
+            }
+
+            createComment(comment)
+                .then((data) =>{
+                    state.comments.push(data)
+                    renderAllComments(state.comments)
+                    commentText.value = ''
+                    commentDiv.style.display = "none" 
+                })
+        })
+    })
+}
+
+const renderCommentList = comment => {
     const li = document.createElement('li')
     
-    li.innerText = state.content
+    li.innerHTML = `<strong>${comment.content}</strong> <br><br> <figcaption class="figure-caption">${moment(comment.created_at).format("DD/MM/YY - hh:mm A")}</figcaption>`
     li.setAttribute("class", "list-group-item")
 
     viewComments.append(li)
@@ -179,11 +233,11 @@ const getAssigner = () => {
 //************************************************************
 //? Table
 const render_tasks = () => {
+    counter = 1
     tableBody.innerHTML = ''
     state.user.tasks.forEach(render_task)
 }
 
-let counter = 1
 const render_task = (task) => {
     const tr = document.createElement('tr')
     tr.innerHTML = `

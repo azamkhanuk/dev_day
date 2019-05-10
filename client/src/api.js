@@ -2,11 +2,17 @@ let userId = 1
 
 const userURL = `http://localhost:3000/users/${userId}`
 const taskURL = `http://localhost:3000/tasks/`
-const commentsURL = `http://localhost:3000/getcomments`
+const getCommentsURL = `http://localhost:3000/getcomments`
+const commentsURL = `http://localhost:3000/comments/`
 
+
+//! USER
 const getUser = () => 
     fetch(userURL)
     .then(resp => resp.json())
+
+
+//! TASK
 
 const createTask = task =>
     fetch(taskURL, {
@@ -39,11 +45,23 @@ fetch(taskURL + `${task.id}`, {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(task)
+      body: JSON.stringify({
+        id: task.id,
+        name: task.name,
+        user_id: task.user_id,
+        content: task.content,
+        deadline: task.deadline,
+        status: task.status,
+        image_url: task.image_url,
+        tag: task.tag,
+        assigner_id: task.assigner_id
+      })
     }).then(resp => resp.json())
 
+
+//! COMMENTS
 const getComments = task => 
-    fetch(commentsURL, {
+    fetch(getCommentsURL, {
         method: 'POST',
         headers: {
             'Accept': 'application/json',
@@ -57,3 +75,16 @@ const getComments = task =>
 const getAssigners =  () =>
     fetch('http://localhost:3000/users/')
     .then(resp => resp.json())
+
+const createComment = comment => 
+    fetch(commentsURL, {
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            content: comment.content,
+            task_id: comment.task_id
+        })
+    }).then(resp => resp.json())
