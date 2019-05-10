@@ -1,0 +1,82 @@
+.pt-100{
+    padding-top:100px;
+}
+.pb-100{
+    padding-bottom:100px;
+}
+.section-title {
+  margin-bottom: 60px;
+}
+.section-title p {
+	color: #777;
+	font-size: 16px;
+}
+.section-title h4 {
+	text-transform: capitalize;
+	font-size: 40px;
+	position: relative;
+	padding-bottom: 20px;
+	margin-bottom: 20px;
+	font-weight: 600;
+}
+.section-title h4:before {
+	position: absolute;
+	content: "";
+	width: 60px;
+	height: 2px;
+	background-color: #ff3636;
+	bottom: 0;
+	left: 50%;
+	margin-left: -30px;
+}
+.section-title h4:after {
+	position: absolute;
+	background-color: #ff3636;
+	content: "";
+	width: 10px;
+	height: 10px;
+	bottom: -4px;
+	left: 50%;
+	margin-left: -5px;
+	border-radius: 50%;
+}
+
+.single-team img {
+  width: 100%;
+}
+.single-team {
+  position: relative;
+}
+.team-hover {
+  background-color: #222;
+  color: #fff;
+  position: absolute;
+  bottom: -107px;
+  left: 0;
+  width: 100%;
+  padding: 10px;
+  text-align: center;
+  -webkit-transition: .4s;
+  transition:.4s
+}
+.team-hover h4 {
+  font-size: 20px;
+  text-transform: capitalize;
+}
+.team-hover h4 span {
+  display: block;
+  font-size: 14px;
+  font-weight: 300;
+  margin: 10px 0;
+}
+.team-hover a {
+  display: inline-block;
+  color: #fff;
+  padding: 0 5px;
+}
+.single-team:hover .team-hover {
+  bottom: 0;
+}
+.single-team {
+  overflow: hidden;
+}
